@@ -1,0 +1,32 @@
+[package]
+name = "atomo-kernel"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+arc-swap.workspace = true
+atomo-manifest.workspace = true
+jsonschema.workspace = true
+parking_lot.workspace = true
+rusqlite.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+thiserror.workspace = true
+tokio.workspace = true
+tokio-util.workspace = true
+ts-rs.workspace = true
+
+# Plugin secrets live in the OS keychain.
+[target.'cfg(target_os = "macos")'.dependencies]
+keyring = { workspace = true, features = ["apple-native"] }
+
+[target.'cfg(windows)'.dependencies]
+keyring = { workspace = true, features = ["windows-native"] }
+
+[target.'cfg(target_os = "linux")'.dependencies]
+keyring = { workspace = true, features = ["linux-native"] }
+
+[dev-dependencies]
+tempfile.workspace = true
